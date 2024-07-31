@@ -40,6 +40,8 @@
         }
         .response {
             margin-top: 20px;
+            font-weight: bold;
+            color: #333;
         }
     </style>
 </head>
@@ -54,10 +56,13 @@
             <input type="text" id="leave" name="Leave" placeholder="Enter leave details" required>
 
             <label for="loginTime">Login Time:</label>
-            <input type="text" id="loginTime" name="Login Time" placeholder="Enter login time" required>
+            <input type="time" id="loginTime" name="Login Time" placeholder="Enter login time" required>
 
             <label for="logoutTime">Logout Time:</label>
-            <input type="text" id="logoutTime" name="Logout Time" placeholder="Enter logout time" required>
+            <input type="time" id="logoutTime" name="Logout Time" placeholder="Enter logout time" required>
+
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="Date" required>
 
             <label for="target">Target:</label>
             <input type="text" id="target" name="Target" placeholder="Enter target" required>
@@ -81,29 +86,32 @@
     <script>
         document.getElementById('performanceForm').onsubmit = function(event) {
             event.preventDefault();
-            var formData = {
-                Name: document.getElementById('name').value,
-                Leave: document.getElementById('leave').value,
-                'Login Time': document.getElementById('loginTime').value,
-                'Logout Time': document.getElementById('logoutTime').value,
-                'Date':document.getElementById('Date').value,
-                Target: document.getElementById('target').value,
-                'Track Record': document.getElementById('trackRecord').value,
-                'IVR Calling': document.getElementById('ivrCalling').value,
-                'Call Record': document.getElementById('callRecord').value,
-                'WhatsApp Messenger': document.getElementById('whatsappMessenger').value
+           var formData = {
+    Name: document.getElementById('name').value,
+    Leave: document.getElementById('leave').value,
+    'Login Time': document.getElementById('loginTime').value,
+    'Logout Time': document.getElementById('logoutTime').value,
+     'Date': document.getElementById('Date').value,
+    Target: document.getElementById('target').value,
+    'Track Record': document.getElementById('trackRecord').value,
+    'IVR Calling': document.getElementById('ivrCalling').value,
+    'Call Record': document.getElementById('callRecord').value,
+    'WhatsApp Messenger': document.getElementById('whatsappMessenger').value
+};
+
             };
-            fetch('https://script.google.com/macros/s/AKfycbzAhYkblvdPQCr3FaWXL2YHGNu1ZFZMu0vbFaTIHbNhZDUJvfPddU0qW-oh4NKPtbeHNA/exec', {
+            fetch('https://script.google.com/macros/s/AKfycbzAhYkblvdPQCr3FaWXL2YHGNu1ZFZMu0vbFaTIHbNhZDUJvfPddU0qW-oh4NKPtbeHNA/exec', {  // Use your deployed Web App URL
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             })
-            .then(response => response.text())
+            .then(response => response.json())
             .then(data => {
-                document.getElementById('responseMessage').innerText = data;
+                document.getElementById('responseMessage').innerText = data.message || 'Submitted successfully!';
             })
             .catch(error => {
-                document.getElementById('responseMessage').innerText = 'Error: ' + error;
+                document.getElementById('responseMessage').innerText = 'Error: ' + error.message;
+                console.error('Error fetching:', error);  // Log error for debugging
             });
         };
     </script>
