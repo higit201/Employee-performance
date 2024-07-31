@@ -2,118 +2,75 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Employee Performance Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .container {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            max-width: 600px;
-            width: 100%;
-        }
-        input, select {
-            margin: 10px 0;
-            padding: 10px;
-            width: 100%;
-            box-sizing: border-box;
-        }
-        input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        .response {
-            margin-top: 20px;
-            font-weight: bold;
-            color: #333;
-        }
-    </style>
+    <title>Form Submission</title>
 </head>
 <body>
-    <div class="container">
-        <h1>Employee Performance Form</h1>
-        <form id="performanceForm">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="Name" placeholder="Enter your name" required>
+    <form id="dataForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="Name"><br><br>
 
-            <label for="leave">Leave:</label>
-            <input type="text" id="leave" name="Leave" placeholder="Enter leave details" required>
+        <label for="leave">Leave:</label>
+        <input type="text" id="leave" name="Leave"><br><br>
 
-            <label for="loginTime">Login Time:</label>
-            <input type="time" id="loginTime" name="Login Time" placeholder="Enter login time" required>
+        <label for="loginTime">Login Time:</label>
+        <input type="text" id="loginTime" name="Login Time"><br><br>
 
-            <label for="logoutTime">Logout Time:</label>
-            <input type="time" id="logoutTime" name="Logout Time" placeholder="Enter logout time" required>
+        <label for="logoutTime">Logout Time:</label>
+        <input type="text" id="logoutTime" name="Logout Time"><br><br>
 
-            <label for="date">Date:</label>
-            <input type="date" id="date" name="Date" required>
+        <label for="date">Date:</label>
+        <input type="date" id="date" name="Date"><br><br>
 
-            <label for="target">Target:</label>
-            <input type="text" id="target" name="Target" placeholder="Enter target" required>
+        <label for="target">Target:</label>
+        <input type="text" id="target" name="Target"><br><br>
 
-            <label for="trackRecord">Track Record:</label>
-            <input type="text" id="trackRecord" name="Track Record" placeholder="Enter track record" required>
+        <label for="trackRecord">Track Record:</label>
+        <input type="text" id="trackRecord" name="Track Record"><br><br>
 
-            <label for="ivrCalling">IVR Calling:</label>
-            <input type="text" id="ivrCalling" name="IVR Calling" placeholder="Enter IVR calling details" required>
+        <label for="ivrCalling">IVR Calling:</label>
+        <input type="text" id="ivrCalling" name="IVR Calling"><br><br>
 
-            <label for="callRecord">Call Record:</label>
-            <input type="text" id="callRecord" name="Call Record" placeholder="Enter call record details" required>
+        <label for="callRecord">Call Record:</label>
+        <input type="text" id="callRecord" name="Call Record"><br><br>
 
-            <label for="whatsappMessenger">WhatsApp Messenger:</label>
-            <input type="text" id="whatsappMessenger" name="WhatsApp Messenger" placeholder="Enter WhatsApp messenger details" required>
+        <label for="whatsappMessenger">WhatsApp Messenger:</label>
+        <input type="text" id="whatsappMessenger" name="WhatsApp Messenger"><br><br>
 
-            <input type="submit" value="Submit">
-        </form>
-        <div id="responseMessage" class="response"></div>
-    </div>
+        <button type="button" onclick="submitForm()">Submit</button>
+    </form>
+
     <script>
-        document.getElementById('performanceForm').onsubmit = function(event) {
-            event.preventDefault();
-           var formData = {
-    Name: document.getElementById('name').value,
-    Leave: document.getElementById('leave').value,
-    'Login Time': document.getElementById('loginTime').value,
-    'Logout Time': document.getElementById('logoutTime').value,
-     'Date': document.getElementById('Date').value,
-    Target: document.getElementById('target').value,
-    'Track Record': document.getElementById('trackRecord').value,
-    'IVR Calling': document.getElementById('ivrCalling').value,
-    'Call Record': document.getElementById('callRecord').value,
-    'WhatsApp Messenger': document.getElementById('whatsappMessenger').value
-};
-
+        function submitForm() {
+            var formData = {
+                Name: document.getElementById('name').value,
+                Leave: document.getElementById('leave').value,
+                'Login Time': document.getElementById('loginTime').value,
+                'Logout Time': document.getElementById('logoutTime').value,
+                Date: document.getElementById('date').value,
+                Target: document.getElementById('target').value,
+                'Track Record': document.getElementById('trackRecord').value,
+                'IVR Calling': document.getElementById('ivrCalling').value,
+                'Call Record': document.getElementById('callRecord').value,
+                'WhatsApp Messenger': document.getElementById('whatsappMessenger').value
             };
-            fetch('https://script.google.com/macros/s/AKfycbzAhYkblvdPQCr3FaWXL2YHGNu1ZFZMu0vbFaTIHbNhZDUJvfPddU0qW-oh4NKPtbeHNA/exec', {  // Use your deployed Web App URL
+
+            fetch('https://script.google.com/macros/s/AKfycbxLzEEQq_Otj34W3BzQUQnHMU1cij_MDzxs_q4WTamAt7poc8xuvJ8RM019rMEjK4syUw/exec', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: {
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify(formData)
             })
             .then(response => response.json())
             .then(data => {
-                document.getElementById('responseMessage').innerText = data.message || 'Submitted successfully!';
+                console.log('Success:', data);
+                alert('Submission successful: ' + data.message);
             })
-            .catch(error => {
-                document.getElementById('responseMessage').innerText = 'Error: ' + error.message;
-                console.error('Error fetching:', error);  // Log error for debugging
+            .catch((error) => {
+                console.error('Error:', error);
+                alert('Submission failed: ' + error.message);
             });
-        };
+        }
     </script>
 </body>
 </html>
